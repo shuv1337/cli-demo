@@ -1,11 +1,97 @@
-# Terminal Demo Engine
+<div align="center">
 
-High-polish terminal trailer engine — generate themed, effect-rich demo GIFs, MP4s, and WebMs from authored scene scripts or real terminal recordings.
+# 🎬 Terminal Demo Engine
 
-## Quickstart
+**High-polish terminal trailer engine — generate themed, effect-rich demo GIFs, MP4s, and WebMs from authored scene scripts or real terminal recordings.**
+
+*One command. Five themes. Infinite drama.*
+
+<br>
+
+![Synthwave Demo](demos/default_synthwave-synthwave-16x9-short.gif)
+
+<sub>▲ Synthwave theme — neon retrowave with CRT scanlines, glow, and vignette</sub>
+
+</div>
+
+<br>
+
+## ✨ Features
+
+- 🎨 **5 built-in themes** — synthwave, glitch, matrix, minimal, ops
+- 🎬 **Scene DSL** — author demos in YAML with banners, spinners, progress bars, fake commands
+- 📐 **Multi-aspect** — 16:9 widescreen, 9:16 stories/reels, 1:1 square
+- 🔥 **Effect pipeline** — CRT scanlines, glow, noise, vignette, glitch cuts
+- 📦 **Multi-format export** — GIF, MP4, WebM, or all at once
+- 🎯 **Deterministic** — seed-based rendering for reproducible output
+- 🔤 **Glyph-safe** — font fallback chain with per-theme glyph maps
+
+---
+
+## 🎭 Theme Gallery
+
+<table>
+<tr>
+<td align="center" width="50%">
+
+### Glitch
+
+![Glitch Demo](demos/default_glitch-glitch-16x9-short.gif)
+
+<sub>Cyber-tech aesthetic · CRT + medium glow · glitch cuts</sub>
+
+</td>
+<td align="center" width="50%">
+
+### Matrix
+
+![Matrix Demo](demos/incident_recovery-matrix-16x9-short.gif)
+
+<sub>Green-on-black terminal · CRT + high glow · incident recovery scene</sub>
+
+</td>
+</tr>
+<tr>
+<td align="center" width="50%">
+
+### Ops
+
+![Ops Demo](demos/launch_day-ops-16x9-short.gif)
+
+<sub>GitHub dark palette · clean + subtle glow · launch day scene</sub>
+
+</td>
+<td align="center" width="50%">
+
+### Minimal
+
+![Minimal Demo](demos/migration_story-minimal-1x1-short.gif)
+
+<sub>VS Code-inspired · no effects · 1:1 square · migration story scene</sub>
+
+</td>
+</tr>
+</table>
+
+<div align="center">
+
+### 📱 Vertical / Stories Format (9:16)
+
+<img src="demos/launch_day-synthwave-9x16-short.gif" width="320" alt="Synthwave 9:16 Demo">
+
+<sub>Synthwave theme · 9:16 aspect · perfect for Instagram Stories & TikTok</sub>
+
+</div>
+
+---
+
+## 🚀 Quickstart
 
 ```bash
-# Render default demo with glitch theme
+# Install
+pip install -e .
+
+# Render default demo with the glitch theme
 ./record-demo.sh --theme glitch --preset short --export gif
 
 # Use the Python CLI directly
@@ -14,38 +100,70 @@ python3 -m demo_engine --theme synthwave --preset cinematic --export all
 # Render a named scenario
 python3 -m demo_engine --scenario launch_day --theme ops --export mp4
 
-# Fast social cut (9:16 for stories/reels)
+# Social media vertical cut (9:16 for stories/reels)
 ./record-demo.sh --theme glitch --preset short --aspect 9:16 --export all --cut 15s
 
 # Deterministic output
 python3 -m demo_engine --theme matrix --preset standard --seed 42 --export gif
 ```
 
-## Available Themes
+### Requirements
 
-| Theme | Vibe | CRT | Glow |
-|-------|------|-----|------|
-| `synthwave` | Purple/pink neon retrowave | ✓ | High |
-| `glitch` | Dark blue cyber-tech | ✓ | Medium |
-| `matrix` | Green-on-black terminal | ✓ | High |
-| `minimal` | Clean dark, VS Code-like | — | — |
-| `ops` | GitHub dark palette | — | Low |
+- Python ≥ 3.11
+- [Pillow](https://pillow.readthedocs.io/) ≥ 10.0, [PyYAML](https://pyyaml.org/) ≥ 6.0, [fonttools](https://github.com/fonttools/fonttools) ≥ 4.40
+- [ffmpeg](https://ffmpeg.org/) (for MP4/WebM export)
+- [Nerd Fonts](https://www.nerdfonts.com/) recommended (JetBrainsMono or CaskaydiaMono)
 
-```bash
-python3 -m demo_engine --list-themes
+---
+
+## 🎨 Themes
+
+| Theme | Vibe | CRT | Glow | Best For |
+|-------|------|:---:|:----:|----------|
+| **`synthwave`** | Purple/pink neon retrowave | ✓ | High | Hero demos, launch trailers |
+| **`glitch`** | Dark blue cyber-tech | ✓ | Medium | DevOps, infra tooling |
+| **`matrix`** | Green-on-black terminal | ✓ | High | Security, monitoring |
+| **`minimal`** | Clean dark, VS Code-like | — | — | Documentation, tutorials |
+| **`ops`** | GitHub dark palette | — | Low | SaaS dashboards, CI/CD |
+
+Themes are plain JSON files in `themes/` — add your own without touching code:
+
+```json
+{
+  "id": "mytheme",
+  "colors": {
+    "bg": "#0a0a0a",
+    "text": "#e0e0e0",
+    "cmd": "#67e8f9",
+    "success": "#86efac",
+    "warn": "#fbbf24",
+    "accent": "#c084fc"
+  },
+  "effects": {
+    "crt": true,
+    "scanlines": 0.12,
+    "glow": 0.4,
+    "noise": 0.04,
+    "vignette": 0.2
+  }
+}
 ```
 
-## Available Presets
+---
 
-| Preset | Duration | FPS | Pace |
-|--------|----------|-----|------|
-| `short` | 8–15s | 24 | Fast, social-optimized |
-| `standard` | 20–30s | 30 | Balanced demo flow |
-| `cinematic` | 35–60s | 30 | Dramatic holds, transitions |
+## ⏱ Presets
 
-## Scene DSL (YAML)
+| Preset | Duration | FPS | Use Case |
+|--------|----------|-----|----------|
+| **`short`** | 8–15s | 24 | Social media, tweets, quick demos |
+| **`standard`** | 20–30s | 30 | README embeds, docs |
+| **`cinematic`** | 35–60s | 30 | Launch trailers, full walkthroughs |
 
-Scenes define the narrative flow of a demo. Create a `.yaml` file in `scenes/`:
+---
+
+## 📝 Scene DSL
+
+Scenes define the narrative flow. Create a `.yaml` file in `scenes/`:
 
 ```yaml
 id: my_demo
@@ -53,17 +171,12 @@ title: "My Cool Demo"
 
 steps:
   - type: banner
-    banner: demo          # Use named ASCII art banner
-
-  - type: line
-    text: "Starting demo..."
-    style: accent
+    banner: demo
 
   - type: command
     text: 'ls -la'
     mode: fake
     output:
-      - "total 42"
       - "drwxr-xr-x  5 user group  160 Jan 15 10:00 src/"
       - "-rw-r--r--  1 user group 1234 Jan 15 09:55 main.ts"
 
@@ -78,105 +191,32 @@ steps:
   - type: transition
     transition: glitch
     duration_ms: 200
-
-  - type: pause
-    duration_ms: 500
 ```
 
-### Step types
+### Step Types
 
-| Type | Description | Key fields |
+| Type | Description | Key Fields |
 |------|-------------|------------|
-| `banner` | ASCII art banner | `text`, `banner` (named) |
+| `banner` | ASCII art header | `text`, `banner` (named) |
 | `line` | Single text line | `text`, `style` |
-| `command` | Simulated command | `text`, `output[]`, `mode` |
+| `command` | Simulated terminal command | `text`, `output[]`, `mode` |
 | `spinner` | Animated spinner | `label`, `cycles` |
-| `progress` | Progress bar | `label`, `width` |
-| `transition` | Visual transition | `transition`, `duration_ms` |
+| `progress` | Progress bar animation | `label`, `width` |
+| `transition` | Visual transition effect | `transition`, `duration_ms` |
 | `pause` | Hold/delay | `duration_ms` |
 
-### Style values
+### Built-in Scenes
 
-`default`, `command`, `success`, `warn`, `error`, `dim`, `accent`
+| Scene | Description |
+|-------|-------------|
+| `default_glitch` | Cyber-tech pipeline rebuild |
+| `launch_day` | Product launch deploy sequence |
+| `incident_recovery` | Alert → triage → recovery story |
+| `migration_story` | Database migration walkthrough |
 
-### Template variables
+---
 
-| Variable | Expansion |
-|----------|-----------|
-| `{{workspace}}` | Temp demo workspace path |
-| `{{theme}}` | Current theme name |
-| `{{date}}` | Current date (YYYY-MM-DD) |
-
-## Theme Schema
-
-Themes are JSON files in `themes/`:
-
-```json
-{
-  "id": "mytheme",
-  "colors": {
-    "bg": "#0a0a0a",
-    "panel": "#141414",
-    "header": "#1e1e1e",
-    "text": "#e0e0e0",
-    "cmd": "#67e8f9",
-    "success": "#86efac",
-    "warn": "#fbbf24",
-    "accent": "#c084fc",
-    "error": "#f87171",
-    "dim": "#666666",
-    "cursor": "#ffffff",
-    "border": "#333333"
-  },
-  "effects": {
-    "crt": true,
-    "scanlines": 0.12,
-    "noise": 0.04,
-    "vignette": 0.2,
-    "glitch_cuts": false,
-    "glow": 0.4
-  },
-  "glyph_map": {
-    "✔": "✓",
-    "🚀": ">>"
-  }
-}
-```
-
-**Required colors:** `bg`, `text`, `cmd`, `success`, `warn`, `accent`
-**Optional colors:** `panel`, `header`, `error`, `dim`, `cursor`, `border`
-
-Add a new theme by creating a JSON file — no code changes needed.
-
-## Font Fallback & Glyph Safety
-
-The engine uses a prioritized font stack:
-
-1. **JetBrainsMono Nerd Font Mono** (primary)
-2. **CaskaydiaMono Nerd Font Mono** (fallback)
-3. **Noto Sans Symbols2** (symbol fallback)
-
-Pillow doesn't do automatic font fallback, so the engine checks each character
-against the font stack and selects the best font per-character.
-
-### Glyph map
-
-Each theme defines a `glyph_map` for characters that may not render in all fonts:
-```json
-{ "🚀": ">>", "✔": "✓" }
-```
-
-### Audit
-
-```bash
-# Full audit across all themes and scenes
-python3 scripts/glyph-audit.py
-
-# Strict mode (exit 1 on any missing glyph)
-python3 scripts/glyph-audit.py --strict
-```
-
-## CLI Reference
+## 🖥 CLI Reference
 
 ```
 python3 -m demo_engine [OPTIONS]
@@ -214,10 +254,66 @@ Debug:
   --keep-workspace      Keep temp workspace
 ```
 
-## Troubleshooting
+---
 
-### Missing fonts
-Install Nerd Fonts:
+## 🔤 Font Fallback & Glyph Safety
+
+The engine uses a prioritized font stack with per-character font selection (Pillow doesn't do automatic fallback):
+
+1. **JetBrainsMono Nerd Font Mono** (primary)
+2. **CaskaydiaMono Nerd Font Mono** (fallback)
+3. **Noto Sans Symbols2** (symbol fallback)
+
+Each theme defines a `glyph_map` for safe substitutions:
+```json
+{ "🚀": ">>", "✔": "✓" }
+```
+
+Run the audit to catch missing glyphs:
+```bash
+python3 scripts/glyph-audit.py          # Full audit
+python3 scripts/glyph-audit.py --strict  # Fail on any missing glyph
+```
+
+---
+
+## 🏗 Architecture
+
+```
+record-demo.sh              ← Shell wrapper
+scripts/
+  render-demo.py            ← Python CLI entrypoint
+  glyph-audit.py            ← Font/glyph coverage tool
+  build-demo-assets.py      ← Generate overlay assets
+
+demo_engine/
+  cli.py                    ← Argument parsing & orchestration
+  config.py                 ← Central configuration
+  terminal_parser.py        ← CR/LF-aware terminal stream parser
+  timeline.py               ← Timeline event model
+  scenes.py                 ← YAML scene DSL loader & compiler
+  themes.py                 ← Theme JSON loader & validator
+  presets.py                ← Timing preset profiles
+  fonts.py                  ← Font discovery & glyph auditing
+  renderer.py               ← Pillow-based frame renderer
+  effects.py                ← CRT, glow, noise, vignette, glitch
+  export.py                 ← Multi-format export (GIF/MP4/WebM)
+  capture.py                ← Asciicast v2 parser
+  audio.py                  ← Soundtrack & SFX management
+
+themes/*.json               ← Theme definitions
+scenes/*.yaml               ← Scene narratives
+assets/                     ← Overlay textures, audio, branding
+tests/                      ← Test suite
+```
+
+---
+
+## 🛠 Troubleshooting
+
+<details>
+<summary><b>Missing fonts</b></summary>
+
 ```bash
 # Arch Linux
 yay -S ttf-jetbrains-mono-nerd
@@ -227,52 +323,42 @@ wget -P ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/do
 unzip ~/.local/share/fonts/JetBrainsMono.zip -d ~/.local/share/fonts
 fc-cache -fv
 ```
+</details>
 
-### ffmpeg not found
+<details>
+<summary><b>ffmpeg not found</b></summary>
+
 MP4/WebM export requires ffmpeg:
 ```bash
 sudo pacman -S ffmpeg    # Arch
 sudo apt install ffmpeg  # Ubuntu
 ```
+</details>
 
-### GIF too large
+<details>
+<summary><b>GIF too large</b></summary>
+
 - Use `--preset short` for smaller output
 - Use `--cut 15s` for social media clips
-- Lower resolution with `--aspect 1:1` (1080x1080 vs 1920x1080)
+- Lower resolution with `--aspect 1:1` (1080×1080 vs 1920×1080)
+</details>
 
-### Tofu characters
-Run the glyph audit to identify missing characters:
+<details>
+<summary><b>Tofu characters (□□□)</b></summary>
+
+Run the glyph audit:
 ```bash
 python3 scripts/glyph-audit.py --strict
 ```
 Add substitutions to your theme's `glyph_map` for problematic characters.
+</details>
 
-## Architecture
+---
 
-```
-record-demo.sh          ← Shell wrapper (delegates to Python engine)
-scripts/
-  render-demo.py        ← Python CLI entrypoint
-  glyph-audit.py        ← Font/glyph coverage tool
-  build-demo-assets.py  ← Generate overlay assets
+<div align="center">
 
-demo_engine/
-  cli.py                ← Argument parsing & pipeline orchestration
-  config.py             ← Central configuration
-  terminal_parser.py    ← CR/LF-aware terminal stream parser
-  timeline.py           ← Timeline event model
-  scenes.py             ← YAML scene DSL loader & compiler
-  themes.py             ← Theme JSON loader & validator
-  presets.py            ← Timing preset profiles
-  fonts.py              ← Font discovery & glyph auditing
-  renderer.py           ← Pillow-based frame renderer
-  effects.py            ← Visual effects pipeline (CRT, glow, etc.)
-  export.py             ← Multi-format export (GIF/MP4/WebM)
-  capture.py            ← Asciicast v2 parser
-  audio.py              ← Soundtrack & SFX management
+**[Themes](#-themes) · [Scenes](#-scene-dsl) · [CLI](#%EF%B8%8F-cli-reference) · [Architecture](#-architecture)**
 
-themes/*.json           ← Theme definitions
-scenes/*.yaml           ← Scene narratives
-assets/                 ← Overlay textures, audio, branding
-tests/                  ← Comprehensive test suite
-```
+MIT License
+
+</div>

@@ -1,0 +1,30 @@
+{
+  "id": "ops",
+  "name": "Ops",
+  "colors": {
+    "bg": "#0d1117",
+    "panel": "#161b22",
+    "header": "#21262d",
+    "text": "#c9d1d9",
+    "cmd": "#58a6ff",
+    "success": "#3fb950",
+    "warn": "#d29922",
+    "accent": "#bc8cff",
+    "error": "#f85149",
+    "dim": "#484f58",
+    "cursor": "#58a6ff",
+    "border": "#30363d"
+  },
+  "effects": {
+    "crt": false,
+    "scanlines": 0.03,
+    "noise": 0.01,
+    "vignette": 0.1,
+    "glitch_cuts": false,
+    "glow": 0.2
+  },
+  "glyph_map": {
+    "🚀": ">>",
+    "✔": "✓"
+  }
+}

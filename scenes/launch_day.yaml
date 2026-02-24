@@ -1,0 +1,69 @@
+id: launch_day
+title: "Launch Day // Ship it live"
+
+steps:
+  - type: banner
+    banner: demo
+
+  - type: line
+    text: "Launch Day // production release sequence"
+    style: accent
+
+  - type: pause
+    duration_ms: 500
+
+  - type: command
+    text: "git log --oneline -5"
+    mode: fake
+    output:
+      - "a3f9c21 feat: final perf optimizations"
+      - "b82d4e7 fix: edge case in retry handler"
+      - "c1a5f90 chore: bump dependencies"
+      - "d44e2b3 feat: add telemetry dashboard"
+      - "e98f6a1 refactor: split orchestrator module"
+
+  - type: spinner
+    label: "Running full test suite"
+    cycles: 30
+
+  - type: command
+    text: "test-runner --suite all --parallel"
+    mode: fake
+    style: success
+    output:
+      - "  unit:        412 passed, 0 failed"
+      - "  integration: 89 passed, 0 failed"
+      - "  e2e:         34 passed, 0 failed"
+      - ""
+      - "All 535 tests passed ✓"
+
+  - type: progress
+    label: "Building production bundle"
+    width: 30
+
+  - type: command
+    text: "deploy --env production --canary 5%"
+    mode: fake
+    output:
+      - "[canary] routing 5% traffic to v2.4.0..."
+      - "[canary] p99 latency: 12ms (threshold: 50ms)"
+      - "[canary] error rate: 0.001% (threshold: 0.5%)"
+      - "[promote] canary healthy — rolling to 100%"
+
+  - type: spinner
+    label: "Rolling deployment to all regions"
+    cycles: 25
+
+  - type: command
+    text: "status --env production"
+    mode: fake
+    style: success
+    output:
+      - "  version:  v2.4.0"
+      - "  regions:  us-east, us-west, eu-central, ap-south"
+      - "  replicas: 24/24 healthy"
+      - "  status:   LIVE"
+
+  - type: line
+    text: ">> Launch complete. Ship it! <<"
+    style: success

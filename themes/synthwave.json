@@ -1,0 +1,30 @@
+{
+  "id": "synthwave",
+  "name": "Synthwave",
+  "colors": {
+    "bg": "#1a1028",
+    "panel": "#241638",
+    "header": "#2e1f4a",
+    "text": "#e0d4f5",
+    "cmd": "#ff7edb",
+    "success": "#72f1b8",
+    "warn": "#fede5d",
+    "accent": "#36f9f6",
+    "error": "#fe4450",
+    "dim": "#8a75a8",
+    "cursor": "#f97e72",
+    "border": "#493666"
+  },
+  "effects": {
+    "crt": true,
+    "scanlines": 0.08,
+    "noise": 0.02,
+    "vignette": 0.25,
+    "glitch_cuts": false,
+    "glow": 0.6
+  },
+  "glyph_map": {
+    "🚀": ">>",
+    "✔": "✓"
+  }
+}

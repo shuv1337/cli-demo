@@ -1,0 +1,23 @@
+[project]
+name = "demo-engine"
+version = "0.1.0"
+description = "Terminal demo trailer engine — theme-aware, effect-rich, multi-format export"
+requires-python = ">=3.11"
+dependencies = [
+    "Pillow>=10.0",
+    "PyYAML>=6.0",
+    "fonttools>=4.40",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov",
+]
+
+[project.scripts]
+demo-engine = "demo_engine.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

@@ -1,0 +1,62 @@
+id: migration_story
+title: "Database Migration // zero-downtime schema evolution"
+
+steps:
+  - type: banner
+    banner: demo
+
+  - type: line
+    text: "Database Migration // zero-downtime schema evolution"
+    style: accent
+
+  - type: pause
+    duration_ms: 300
+
+  - type: command
+    text: "migrate plan --from v3 --to v4"
+    mode: fake
+    output:
+      - "Migration plan: v3 → v4"
+      - "  1. Add column: users.verified_at (nullable)"
+      - "  2. Backfill: users.verified_at from auth_events"
+      - "  3. Add index: users(verified_at) CONCURRENTLY"
+      - "  4. Add column: users.role (default: 'member')"
+      - "  5. Drop column: users.legacy_permissions"
+      - ""
+      - "  Estimated: 5 steps, ~12 min (zero downtime)"
+
+  - type: spinner
+    label: "Validating migration plan against production schema"
+    cycles: 15
+
+  - type: command
+    text: "migrate run --plan v3-to-v4 --dry-run"
+    mode: fake
+    style: success
+    output:
+      - "  [dry-run] step 1/5: ADD COLUMN users.verified_at ... OK"
+      - "  [dry-run] step 2/5: BACKFILL 2.4M rows ........... OK"
+      - "  [dry-run] step 3/5: CREATE INDEX CONCURRENTLY .... OK"
+      - "  [dry-run] step 4/5: ADD COLUMN users.role ........ OK"
+      - "  [dry-run] step 5/5: DROP COLUMN legacy_perms ..... OK"
+      - ""
+      - "  Dry run complete: all steps validated"
+
+  - type: progress
+    label: "Executing migration (live)"
+    width: 30
+
+  - type: command
+    text: "migrate status"
+    mode: fake
+    style: success
+    output:
+      - "  Schema version: v4"
+      - "  Applied: 5/5 steps"
+      - "  Duration: 11m 47s"
+      - "  Downtime: 0s"
+      - "  Rollback available: yes (until 2024-01-15)"
+
+  - type: line
+    text: ">> Migration complete. Zero downtime."
+    style: success

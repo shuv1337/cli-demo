@@ -1,0 +1,32 @@
+{
+  "id": "matrix",
+  "name": "Matrix",
+  "colors": {
+    "bg": "#000000",
+    "panel": "#001100",
+    "header": "#002200",
+    "text": "#00ff41",
+    "cmd": "#00ff41",
+    "success": "#39ff14",
+    "warn": "#88cc00",
+    "accent": "#00ff88",
+    "error": "#ff3300",
+    "dim": "#006622",
+    "cursor": "#00ff41",
+    "border": "#003300"
+  },
+  "effects": {
+    "crt": true,
+    "scanlines": 0.15,
+    "noise": 0.06,
+    "vignette": 0.3,
+    "glitch_cuts": false,
+    "glow": 0.8
+  },
+  "glyph_map": {
+    "🚀": ">>",
+    "✔": "+",
+    "✓": "+",
+    "✗": "x"
+  }
+}

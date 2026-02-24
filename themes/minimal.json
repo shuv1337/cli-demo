@@ -1,0 +1,30 @@
+{
+  "id": "minimal",
+  "name": "Minimal",
+  "colors": {
+    "bg": "#1c1c1c",
+    "panel": "#242424",
+    "header": "#2c2c2c",
+    "text": "#d4d4d4",
+    "cmd": "#569cd6",
+    "success": "#6a9955",
+    "warn": "#dcdcaa",
+    "accent": "#9cdcfe",
+    "error": "#f44747",
+    "dim": "#666666",
+    "cursor": "#d4d4d4",
+    "border": "#404040"
+  },
+  "effects": {
+    "crt": false,
+    "scanlines": 0.0,
+    "noise": 0.0,
+    "vignette": 0.05,
+    "glitch_cuts": false,
+    "glow": 0.0
+  },
+  "glyph_map": {
+    "🚀": ">>",
+    "✔": "✓"
+  }
+}

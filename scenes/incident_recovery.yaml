@@ -1,0 +1,63 @@
+id: incident_recovery
+title: "Incident Recovery // detect, diagnose, fix"
+
+steps:
+  - type: line
+    text: "INCIDENT ALERT // service degradation detected"
+    style: error
+
+  - type: pause
+    duration_ms: 300
+
+  - type: command
+    text: "monitor --service api-gateway --window 5m"
+    mode: fake
+    style: warn
+    output:
+      - "  p99 latency:  420ms  (normal: 15ms)  ▲ 28x"
+      - "  error rate:   12.4%  (normal: 0.02%) ▲ 620x"
+      - "  throughput:   1,200 rps (normal: 8,400 rps) ▼ 86%"
+      - ""
+      - "  SEVERITY: HIGH — auto-paging on-call"
+
+  - type: spinner
+    label: "Correlating logs and traces"
+    cycles: 20
+
+  - type: command
+    text: "trace --error-sample --limit 5"
+    mode: fake
+    output:
+      - "  trace-a91f: POST /api/checkout → timeout @ db-pool"
+      - "  trace-b3c2: POST /api/checkout → timeout @ db-pool"
+      - "  trace-d8e4: GET  /api/inventory → timeout @ db-pool"
+      - ""
+      - "  Root cause: database connection pool exhaustion"
+      - "  Affected: db-primary-us-east-1 (max_connections: 100)"
+
+  - type: command
+    text: "fix apply --playbook db-pool-expansion --target db-primary-us-east-1"
+    mode: fake
+    output:
+      - "[fix] expanding max_connections: 100 → 500"
+      - "[fix] restarting connection pool manager"
+      - "[fix] draining stale connections"
+
+  - type: spinner
+    label: "Verifying fix propagation"
+    cycles: 15
+
+  - type: command
+    text: "monitor --service api-gateway --window 1m"
+    mode: fake
+    style: success
+    output:
+      - "  p99 latency:  14ms   ✓ nominal"
+      - "  error rate:   0.01%  ✓ nominal"
+      - "  throughput:   8,600 rps ✓ nominal"
+      - ""
+      - "  STATUS: RECOVERED — all clear"
+
+  - type: line
+    text: ">> Incident resolved. MTTR: 4m 22s"
+    style: success

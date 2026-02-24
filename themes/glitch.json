@@ -1,0 +1,30 @@
+{
+  "id": "glitch",
+  "name": "Glitch",
+  "colors": {
+    "bg": "#05070d",
+    "panel": "#0e1424",
+    "header": "#1a2750",
+    "text": "#dbe7ff",
+    "cmd": "#67e8f9",
+    "success": "#86efac",
+    "warn": "#fbbf24",
+    "accent": "#c084fc",
+    "error": "#f87171",
+    "dim": "#5a6a8a",
+    "cursor": "#67e8f9",
+    "border": "#253560"
+  },
+  "effects": {
+    "crt": true,
+    "scanlines": 0.12,
+    "noise": 0.04,
+    "vignette": 0.2,
+    "glitch_cuts": true,
+    "glow": 0.4
+  },
+  "glyph_map": {
+    "✔": "✓",
+    "🚀": ">>"
+  }
+}

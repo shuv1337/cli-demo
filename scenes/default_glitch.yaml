@@ -1,0 +1,85 @@
+id: default_glitch
+title: "Glitch Grid Demo // high-voltage terminal sequence"
+theme: glitch
+
+steps:
+  - type: banner
+    banner: glitch
+
+  - type: line
+    text: "Glitch Grid Demo // high-voltage terminal sequence"
+    style: accent
+
+  - type: line
+    text: "theme: glitch"
+    style: dim
+
+  - type: line
+    text: "workspace: {{workspace}}"
+    style: dim
+
+  - type: pause
+    duration_ms: 200
+
+  - type: command
+    text: 'ls -1 "{{workspace}}/src"'
+    mode: fake
+    output:
+      - "orchestrator.ts"
+      - "render.ts"
+
+  - type: command
+    text: 'grep -R "TODO" -n "{{workspace}}/src"'
+    mode: fake
+    output:
+      - "src/orchestrator.ts:3:  // TODO: retry policy tuning"
+      - "src/render.ts:3:  // TODO: dark mode spectrum gradients"
+
+  - type: spinner
+    label: "Resynchronizing packet ghosts"
+    cycles: 20
+
+  - type: progress
+    label: "Rebuilding fractured pipeline"
+    width: 26
+
+  - type: command
+    text: 'neon scan --project "{{workspace}}" --profile glitch'
+    mode: fake
+    style: success
+    output:
+      - "✓ src/orchestrator.ts    deprecated APIs: 0   perf hints: 2"
+      - "✓ src/render.ts          deprecated APIs: 0   perf hints: 1"
+      - "✓ config/pipeline.json   schema: valid         target: staging"
+      - ""
+      - "Scan summary:"
+      - "  files analyzed : 3"
+      - "  warnings       : 0"
+      - "  opportunities  : 3"
+
+  - type: command
+    text: 'tail -n 5 "{{workspace}}/logs/telemetry.log"'
+    mode: fake
+    output:
+      - "10:21:01 ingest packets=148 latency=4.2ms"
+      - "10:21:02 render frames=920 dropped=0"
+      - "10:21:03 cache hit_rate=97.4%"
+      - "10:21:04 queue depth=3 status=stable"
+      - "10:21:05 release candidate=rc.42 verdict=green"
+
+  - type: command
+    text: "neon ship --target staging --style glitchcore"
+    mode: fake
+    style: success
+    output:
+      - "[link] handshake with edge gateway.............ok"
+      - "[push] uploading release bundle................ok"
+      - "[verify] health checks (latency p95 < 20ms)....ok"
+      - "[done] deployment id: neon-rc42-a9f"
+      - ""
+      - "endpoint: https://staging.glitch-grid.demo"
+      - "status:   LIVE"
+
+  - type: line
+    text: ">> Demo complete."
+    style: success

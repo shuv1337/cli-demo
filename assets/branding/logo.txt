@@ -1,0 +1,4 @@
+╔══════════════════════════════════════╗
+║       TERMINAL DEMO ENGINE           ║
+║     high-polish trailer generator    ║
+╚══════════════════════════════════════╝

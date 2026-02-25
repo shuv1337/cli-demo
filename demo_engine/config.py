@@ -23,7 +23,7 @@ class RenderConfig:
     """Full render configuration assembled from CLI flags, env, and defaults."""
 
     # Core
-    theme: str = "synthwave"
+    theme: str = "nightowl"
     preset: str = "standard"
     scenario: Optional[str] = None
     seed: Optional[int] = None

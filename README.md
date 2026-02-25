@@ -4,9 +4,9 @@
 
 Generate themed terminal demo GIFs, MP4s, and WebMs from YAML scene scripts.
 
-![Synthwave Demo](demos/default_synthwave-synthwave-16x9-short.gif)
+![Night Owl Demo](demos/launch_day-nightowl-16x9-short.gif)
 
-<sub>Synthwave theme — CRT scanlines, glow, vignette</sub>
+<sub>Night Owl theme (default) — colors from Ghostty's Night Owl</sub>
 
 </div>
 
@@ -15,6 +15,22 @@ Generate themed terminal demo GIFs, MP4s, and WebMs from YAML scene scripts.
 ## Themes
 
 <table>
+<tr>
+<td align="center" width="50%">
+
+### Night Owl (default)
+
+![Night Owl Demo](demos/default_glitch-nightowl-16x9-short.gif)
+
+</td>
+<td align="center" width="50%">
+
+### Synthwave
+
+![Synthwave Demo](demos/default_synthwave-synthwave-16x9-short.gif)
+
+</td>
+</tr>
 <tr>
 <td align="center" width="50%">
 
@@ -59,6 +75,7 @@ Generate themed terminal demo GIFs, MP4s, and WebMs from YAML scene scripts.
 
 | Theme | Look | CRT | Glow |
 |-------|------|:---:|:----:|
+| `nightowl` | Deep navy (Night Owl) | — | Low |
 | `synthwave` | Purple/pink neon | ✓ | High |
 | `glitch` | Dark blue | ✓ | Medium |
 | `matrix` | Green on black | ✓ | High |
@@ -95,14 +112,15 @@ Themes are JSON files in `themes/`. Drop in a new file to add one — no code ch
 ```bash
 pip install -e .
 
-./record-demo.sh --theme glitch --preset short --export gif
+# uses nightowl theme by default
+python3 -m demo_engine --preset short --export gif
 
+# pick a theme
 python3 -m demo_engine --theme synthwave --preset cinematic --export all
-
 python3 -m demo_engine --scenario launch_day --theme ops --export mp4
 
 # vertical cut for stories/reels
-./record-demo.sh --theme glitch --preset short --aspect 9:16 --export all --cut 15s
+./record-demo.sh --preset short --aspect 9:16 --export all --cut 15s
 
 # reproducible output
 python3 -m demo_engine --theme matrix --preset standard --seed 42 --export gif
@@ -190,7 +208,7 @@ Template variables: `{{workspace}}`, `{{theme}}`, `{{date}}`
 python3 -m demo_engine [OPTIONS]
 
 Theme & Scene:
-  --theme NAME          synthwave, glitch, matrix, minimal, ops
+  --theme NAME          nightowl (default), synthwave, glitch, matrix, minimal, ops
   --scenario NAME       Scene file name or path
   --list-themes         List available themes
   --list-scenes         List available scenes

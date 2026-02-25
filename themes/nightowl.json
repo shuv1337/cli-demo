@@ -1,0 +1,30 @@
+{
+  "id": "nightowl",
+  "name": "Night Owl",
+  "colors": {
+    "bg": "#011627",
+    "panel": "#0b2942",
+    "header": "#112b45",
+    "text": "#d6deeb",
+    "cmd": "#82aaff",
+    "success": "#22da6e",
+    "warn": "#addb67",
+    "accent": "#c792ea",
+    "error": "#ef5350",
+    "dim": "#5f7e97",
+    "cursor": "#7e57c2",
+    "border": "#1d3b53"
+  },
+  "effects": {
+    "crt": false,
+    "scanlines": 0.0,
+    "noise": 0.01,
+    "vignette": 0.15,
+    "glitch_cuts": false,
+    "glow": 0.2
+  },
+  "glyph_map": {
+    "🚀": ">>",
+    "✔": "✓"
+  }
+}
